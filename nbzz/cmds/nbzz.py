@@ -4,14 +4,15 @@ from nbzz import __version__
 from nbzz.cmds.configure import configure_cmd
 #from nbzz.cmds.farm import farm_cmd
 from nbzz.cmds.init import init_cmd
-#from nbzz.cmds.keys import keys_cmd
+from nbzz.cmds.keys import keys_cmd
 #from nbzz.cmds.netspace import netspace_cmd
 #from nbzz.cmds.plots import plots_cmd
 #from nbzz.cmds.show import show_cmd
 from nbzz.cmds.pledge import pledge_cmd
 from nbzz.cmds.pledge_funcs import faucet
 from nbzz.cmds.gatekeeper import gatekeeper_cmd
-#from nbzz.cmds.stop import stop_cmd
+from nbzz.cmds.start import start_cmd,status_cmd
+from nbzz.cmds.stop import stop_cmd
 #from nbzz.cmds.wallet import wallet_cmd
 #from nbzz.cmds.plotnft import plotnft_cmd
 from nbzz.util.default_root import DEFAULT_ROOT_PATH
@@ -70,16 +71,17 @@ def faucet_cmd(ctx: click.Context,password,bee_key_path) -> None:
 #     asyncio.get_event_loop().run_until_complete(async_run_daemon(ctx.obj["root_path"]))
 
 
-#cli.add_command(keys_cmd)
+cli.add_command(keys_cmd)
 #cli.add_command(plots_cmd)
 #cli.add_command(wallet_cmd)
 #cli.add_command(plotnft_cmd)
 cli.add_command(configure_cmd)
 cli.add_command(init_cmd)
-#cli.add_command(show_cmd)
 cli.add_command(pledge_cmd)
 cli.add_command(gatekeeper_cmd)
-#cli.add_command(stop_cmd)
+cli.add_command(start_cmd)
+cli.add_command(status_cmd)
+cli.add_command(stop_cmd)
 #cli.add_command(netspace_cmd)
 #cli.add_command(farm_cmd)
 

@@ -1,10 +1,9 @@
 from typing import List
 
 
-from nbzz.util.bech32m import encode_puzzle_hash
-from nbzz.util.config import load_config
-from nbzz.util.default_root import DEFAULT_ROOT_PATH
-from nbzz.util.ints import uint32
-from nbzz.util.keychain import Keychain, bytes_to_mnemonic, generate_mnemonic
+from nbzz.util.bee_key import keyfile
 
-
+def show_swarm_key(bee_key_path):
+    address= keyfile(bee_key_path)["address"]
+    print(address)
+    return address

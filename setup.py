@@ -2,9 +2,6 @@ from setuptools import setup
 
 dependencies = [
     "blspy==1.0.5",  # Signature library
-    "chiavdf==1.0.2",  # timelord and vdf verification
-    "chiabip158==1.0",  # bip158-style wallet filters
-    "chiapos==1.0.4",  # proof of space
     "clvm==0.9.7",
     "clvm_rs==0.1.8",
     "clvm_tools==0.4.3",
@@ -16,8 +13,6 @@ dependencies = [
     "cryptography==3.4.7",  # Python cryptography library for TLS - keyring conflict
     "keyring==23.0.1",  # Store keys in MacOS Keychain, Windows Credential Locker
     "keyrings.cryptfile==1.3.4",  # Secure storage for keys on Linux (Will be replaced)
-    #  "keyrings.cryptfile==1.3.8",  # Secure storage for keys on Linux (Will be replaced)
-    #  See https://github.com/frispete/keyrings.cryptfile/issues/15
     "PyYAML==5.4.1",  # Used for config file format
     "setproctitle==1.2.2",  # Gives the chia processes readable names
     "sortedcontainers==2.3.0",  # For maintaining sorted mempools
@@ -67,14 +62,6 @@ kwargs = dict(
     entry_points={
         "console_scripts": [
             "nbzz = nbzz.cmds.nbzz:main",
-            "nbzz_wallet = nbzz.server.start_wallet:main",
-            "nbzz_full_node = nbzz.server.start_full_node:main",
-            "nbzz_harvester = nbzz.server.start_harvester:main",
-            "nbzz_farmer = nbzz.server.start_farmer:main",
-            "nbzz_introducer = nbzz.server.start_introducer:main",
-            "nbzz_timelord = nbzz.server.start_timelord:main",
-            "nbzz_timelord_launcher = nbzz.timelord.timelord_launcher:main",
-            "nbzz_full_node_simulator = nbzz.simulator.start_simulator:main",
         ]
     },
     package_data={

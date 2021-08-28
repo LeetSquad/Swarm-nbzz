@@ -4,6 +4,9 @@ from Crypto.Hash import SHA3_256
 from Crypto.Cipher import AES
 from Crypto.Util import Counter
 
+def keyfile(key_path):
+    keyfile=eth_keyfile.load_keyfile(key_path)
+    return keyfile
 def decrypt_privatekey_from_bee_keyfile(key_path,password:str):
     keyfile=eth_keyfile.load_keyfile(key_path) 
     crypto=keyfile["crypto"]

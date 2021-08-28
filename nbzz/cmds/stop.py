@@ -1,46 +1,39 @@
-import sys
-from pathlib import Path
-
 import click
+from nbzz.util.bee_key import decrypt_privatekey_from_bee_keyfile
+from nbzz.util.config import load_config
+from web3 import Web3
+from typing import Dict
+from nbzz.util.default_root import DEFAULT_ROOT_PATH
+from nbzz.util.nbzz_abi import NBZZ_ABI
 
-from nbzz.util.service_groups import all_groups, services_for_groups
-
-
-async def async_stop(root_path: Path, group: str, stop_daemon: bool) -> int:
-    from nbzz.daemon.client import connect_to_daemon_and_validate
-
-    daemon = await connect_to_daemon_and_validate(root_path)
-    if daemon is None:
-        print("Couldn't connect to nbzz daemon")
-        return 1
-
-    if stop_daemon:
-        r = await daemon.exit()
-        await daemon.close()
-        print(f"daemon: {r}")
-        return 0
-
-    return_val = 0
-
-    for service in services_for_groups(group):
-        print(f"{service}: ", end="", flush=True)
-        if not await daemon.is_running(service_name=service):
-            print("Not running")
-        elif await daemon.stop_service(service_name=service):
-            print("Stopped")
-        else:
-            print("Stop failed")
-            return_val = 1
-
-    await daemon.close()
-    return return_val
-
-
-@click.command("stop", short_help="Stop services")
-@click.option("-d", "--daemon", is_flag=True, type=bool, help="Stop daemon")
-@click.argument("group", type=click.Choice(all_groups()), nargs=-1, required=True)
+@click.command("stop", short_help="stop bzz")
+@click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
+@click.option("-p", "--password",  type=str, prompt="input password of bee",help="password of bee")
 @click.pass_context
-def stop_cmd(ctx: click.Context, daemon: bool, group: str) -> None:
-    import asyncio
-
-    sys.exit(asyncio.get_event_loop().run_until_complete(async_stop(ctx.obj["root_path"], group, daemon)))
+def stop_cmd(ctx: click.Context, password,bee_key_path) -> None:
+    privatekey=decrypt_privatekey_from_bee_keyfile(bee_key_path,password)
+    print("wait for stop")
+    config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
+    swap_url=config["swap_endpoint"]
+    if "http" ==swap_url[:4]:
+        w3=Web3(Web3.HTTPProvider(swap_url))
+    elif "ws" ==swap_url[:2]:
+        w3=Web3(Web3.WebsocketProvider(swap_url))
+    
+    if not w3.isConnected():
+        print("can't connect to swap endpoint")
+        exit(1)
+    my_local_acc=w3.eth.account.from_key(privatekey)
+    w3.eth.default_account=my_local_acc.address
+    nbzz_contract=w3.eth.contract(address=config["network_overrides"]["constants"][config["selected_network"]]["CONTRACT"],abi=NBZZ_ABI)
+    construct_txn = nbzz_contract.functions.nodeOffline().buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address)}) #stop
+    print(construct_txn)
+    signed =my_local_acc.sign_transaction(construct_txn)
+    tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)
+    # Wait for the transaction to be mined, and get the transaction receipt
+    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    print(tx_receipt)
+    if tx_receipt["status"] !=1:
+        print( "stop fail ")
+    else:
+        print( "stop sucess ")

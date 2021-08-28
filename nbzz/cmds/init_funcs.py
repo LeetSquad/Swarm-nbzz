@@ -333,6 +333,6 @@ def nbzz_init(root_path: Path):
     create_all_ssl(root_path)
     #check_keys(root_path)
     print("")
-    print("To see your keys, run 'nbzz keys show --show-mnemonic-seed'")
+    print("To see your keys, run 'nbzz keys show'")
 
     return 0

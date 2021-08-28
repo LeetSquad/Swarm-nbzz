@@ -3,7 +3,7 @@ from typing import Optional
 import click
 
 
-@click.group("wallet", short_help="Manage your wallet")
+@click.group("wallet", short_help="Manage your wallet") 
 def wallet_cmd() -> None:
     pass
 
