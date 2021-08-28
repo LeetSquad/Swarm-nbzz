@@ -28,10 +28,10 @@ All configuration data is stored in a directory structure at the `$NBZZ_ROOT` en
 ```bash
 cd nbzz
 . ./activate
-nbzz stop -d all
 deactivate
-git fetch
-git checkout latest
+git checkout main
+git pull
+
 git status
 # git status should say "nothing to commit, working tree clean", 
 # if you have uncommitted changes, RELEASE.dev0 will be reported.
@@ -54,5 +54,5 @@ nbzz running in the goerli testnet ,to running nbzz ,you do need some geth.
 then `cd /path_to_bee/` ,you will see keys dir in there.  
 then run `nbzz faucet -p you-bee-password` to get some nbzz for pledge.  
 then run `nbzz pledge -p you-bee-password` to pledge some nbzz for start   
-mining.
+mining.  
 the run  `nbzz start -p you-bee-password` to  start mining.
