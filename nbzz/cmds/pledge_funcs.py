@@ -25,7 +25,7 @@ def pledge(number,password,bee_key_path):
     my_local_acc=w3.eth.account.from_key(privatekey)
     w3.eth.default_account=my_local_acc.address
     nbzz_contract=w3.eth.contract(address=config["network_overrides"]["constants"][config["selected_network"]]["CONTRACT"],abi=NBZZ_ABI)
-    construct_txn = nbzz_contract.functions.contractPledge().buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address)}) #pledge
+    construct_txn = nbzz_contract.functions.contractPledge().buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":2900_0000}) #pledge
     print(construct_txn)
     signed =my_local_acc.sign_transaction(construct_txn)
     tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)
@@ -54,7 +54,7 @@ def faucet(password,bee_key_path):
     my_local_acc=w3.eth.account.from_key(privatekey)
     w3.eth.default_account=my_local_acc.address
     nbzz_contract=w3.eth.contract(address=config["network_overrides"]["constants"][config["selected_network"]]["CONTRACT"],abi=NBZZ_ABI)
-    construct_txn = nbzz_contract.functions.relief().buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address)}) #faucet
+    construct_txn = nbzz_contract.functions.relief().buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":2900_0000}) #faucet
     print(construct_txn)
     signed =my_local_acc.sign_transaction(construct_txn)
     tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)

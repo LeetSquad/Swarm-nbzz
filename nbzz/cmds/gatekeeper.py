@@ -114,7 +114,7 @@ def gatekeeper_cmd(ctx: click.Context, begain_user, password, bee_key_path) -> N
                 # Submit the transaction that deploys the contract
                 glod_contract_address=Web3.toChecksumAddress("0xA2475490B31C0133CF3850AA88896C5546d42A1C")
                 alias_contract_address=Web3.toChecksumAddress("0x73600A5b2BA7257451d20013B407187241c21483")
-                construct_txn  = nbzz_contract.functions.toDailyoutput(glod_contract_address,alias_contract_address,right_eth_list[-4*spilt_block:],now_block_number-spilt_block+1).buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":1000_0000})#0.5eth
+                construct_txn  = nbzz_contract.functions.toDailyoutput(glod_contract_address,alias_contract_address,right_eth_list[-4*spilt_block:],now_block_number-spilt_block+1).buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":2900_0000})#0.5eth
                 print(construct_txn)
                 signed =my_local_acc.sign_transaction(construct_txn)
 

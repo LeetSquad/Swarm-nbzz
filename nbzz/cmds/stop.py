@@ -26,7 +26,7 @@ def stop_cmd(ctx: click.Context, password,bee_key_path) -> None:
     my_local_acc=w3.eth.account.from_key(privatekey)
     w3.eth.default_account=my_local_acc.address
     nbzz_contract=w3.eth.contract(address=config["network_overrides"]["constants"][config["selected_network"]]["CONTRACT"],abi=NBZZ_ABI)
-    construct_txn = nbzz_contract.functions.nodeOffline().buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address)}) #stop
+    construct_txn = nbzz_contract.functions.nodeOffline().buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":2900_0000}) #stop
     print(construct_txn)
     signed =my_local_acc.sign_transaction(construct_txn)
     tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)
