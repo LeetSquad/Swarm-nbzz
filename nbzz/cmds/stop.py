@@ -36,4 +36,4 @@ def stop_cmd(ctx: click.Context, password,bee_key_path) -> None:
     if tx_receipt["status"] !=1:
         print( "stop fail ")
     else:
-        print( "stop sucess ")
+        print( "stop success ")

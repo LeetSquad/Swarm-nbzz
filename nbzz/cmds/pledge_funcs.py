@@ -35,7 +35,7 @@ def pledge(number,password,bee_key_path):
     if tx_receipt["status"] !=1:
         print( "pledge fail ")
     else:
-        print( "pledge sucess ")
+        print( "pledge success ")
 
 
 def faucet(password,bee_key_path):

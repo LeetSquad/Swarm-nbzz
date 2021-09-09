@@ -18,13 +18,17 @@ network_overrides: &network_overrides
       NETWORK_TYPE: 1
       CONTRACT: "0x07AAEC0b237cCF56b03A7C43C1C7A783DA560642"
       BLOCKHEIGHT: 5397223
+    testnet2:
+      NETWORK_TYPE: 1
+      CONTRACT: "0x80B151a2cA3a770349E8C52646EAbD8eF9a07A89"
+      BLOCKHEIGHT: 5466322
   config:
     mainnet:
       address_prefix: "nbzz"
     testnet0:
       address_prefix: "gnbzz"
 
-selected_network: &selected_network "testnet1"
+selected_network: &selected_network "testnet2"
 
 # public ssl ca is included in source code
 # Private ssl ca is used for trusted connections between machines user owns

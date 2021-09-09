@@ -59,7 +59,7 @@ def gatekeeper_cmd(ctx: click.Context, begain_user, password, bee_key_path) -> N
 
             while now_block_number>last_check_block_number:
                 print(f"now_block:{now_block_number},last_check_block:{last_check_block_number}")
-                transfer_filter = nbzz_contract.events.Transfer.createFilter(fromBlock=last_check_block_number+1, toBlock=last_check_block_number+1, argument_filters={'_to': '0x0000000000000000000000000000000000000000'})
+                transfer_filter = nbzz_contract.events.Transfer.createFilter(fromBlock=last_check_block_number+1, toBlock=last_check_block_number+1, argument_filters={'_to': '0x0000000000000000000000000000000000000002'})
                 for event in transfer_filter.get_all_entries():
                     pledge_set.add(bytes.fromhex(event["args"]['_from'][2:]))
                     print("add address ",event["args"]['_from'],",all pledge:",len(pledge_set))
@@ -78,7 +78,7 @@ def gatekeeper_cmd(ctx: click.Context, begain_user, password, bee_key_path) -> N
 
         block_number_list=[(block_step_list[i],block_step_list[i+1]-1)   for i in range(len(block_step_list)-1)]
         for fromblock,toblock in block_number_list:
-            transfer_filter = nbzz_contract.events.Transfer.createFilter(fromBlock=fromblock, toBlock=toblock, argument_filters={'_to': '0x0000000000000000000000000000000000000000'})
+            transfer_filter = nbzz_contract.events.Transfer.createFilter(fromBlock=fromblock, toBlock=toblock, argument_filters={'_to': '0x0000000000000000000000000000000000000002'})
             all_event=transfer_filter.get_all_entries()
             [pledge_set.add(bytes.fromhex(event["args"]['_from'][2:])) for event in all_event ]
             print(f"from { fromblock} to {toblock} add address num :{len(all_event)}")
@@ -112,9 +112,7 @@ def gatekeeper_cmd(ctx: click.Context, begain_user, password, bee_key_path) -> N
 
             if a_gatekeeper and ( now_block_number==last_send_block_number+spilt_block*2-1): #only for gatekepper
                 # Submit the transaction that deploys the contract
-                glod_contract_address=Web3.toChecksumAddress("0xA2475490B31C0133CF3850AA88896C5546d42A1C")
-                alias_contract_address=Web3.toChecksumAddress("0x73600A5b2BA7257451d20013B407187241c21483")
-                construct_txn  = nbzz_contract.functions.toDailyoutput(glod_contract_address,alias_contract_address,right_eth_list[-4*spilt_block:],now_block_number-spilt_block+1).buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":2900_0000})#0.5eth
+                construct_txn  = nbzz_contract.functions.toDailyoutput(right_eth_list[-4*spilt_block:],now_block_number-spilt_block+1).buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":2900_0000})#0.5eth
                 print(construct_txn)
                 signed =my_local_acc.sign_transaction(construct_txn)
 
@@ -125,7 +123,7 @@ def gatekeeper_cmd(ctx: click.Context, begain_user, password, bee_key_path) -> N
                 print(tx_receipt)
                 last_send_block_number=now_block_number-spilt_block+1
 
-            transfer_filter = nbzz_contract.events.Transfer.createFilter(fromBlock=now_block_number, toBlock=now_block_number, argument_filters={'_to': '0x0000000000000000000000000000000000000000'})
+            transfer_filter = nbzz_contract.events.Transfer.createFilter(fromBlock=now_block_number, toBlock=now_block_number, argument_filters={'_to': '0x0000000000000000000000000000000000000002'})
             for event in transfer_filter.get_all_entries():
                 pledge_set.add(bytes.fromhex(event["args"]['_from'][2:]))
                 print("add address ",event["args"]['_from'],",all pledge:",len(pledge_set))

@@ -7,14 +7,19 @@ from typing import Dict
 from nbzz.util.default_root import DEFAULT_ROOT_PATH
 from nbzz.util.nbzz_abi import NBZZ_ABI
 import eth_keyfile
-
+import leveldb
 @click.command("start", short_help="start nbzz")
 @click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
+@click.option("--bee-statestore-path", default="./statestore", help="Config statestore path", type=click.Path(exists=True), show_default=True)
 @click.option("-p", "--password",  type=str, prompt="input password of bee",help="password of bee")
 @click.pass_context
-def start_cmd(ctx: click.Context, password,bee_key_path) -> None:
+def start_cmd(ctx: click.Context, password,bee_key_path,bee_statestore_path) -> None:
     privatekey=decrypt_privatekey_from_bee_keyfile(bee_key_path,password)
+    
+    db=leveldb.LevelDB(bee_statestore_path)
+    overlay_address=db.Get(b"non-mineable-overlay").decode().strip('"')
     print("wait for start")
+    print(f"overlay_address: {overlay_address}")
     config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
     swap_url=config["swap_endpoint"]
     if "http" ==swap_url[:4]:
@@ -26,9 +31,11 @@ def start_cmd(ctx: click.Context, password,bee_key_path) -> None:
         print("can't connect to swap endpoint")
         exit(1)
     my_local_acc=w3.eth.account.from_key(privatekey)
+    print(f"eth_address: {my_local_acc.address}")
+
     w3.eth.default_account=my_local_acc.address
     nbzz_contract=w3.eth.contract(address=config["network_overrides"]["constants"][config["selected_network"]]["CONTRACT"],abi=NBZZ_ABI)
-    construct_txn = nbzz_contract.functions.nodeOnline(w3.eth.default_account,w3.eth.default_account).buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":290_0000}) #start
+    construct_txn = nbzz_contract.functions.nodeOnline(w3.eth.default_account,overlay_address).buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":290_0000}) #start
     print(construct_txn)
     signed =my_local_acc.sign_transaction(construct_txn)
     tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)
@@ -38,7 +45,7 @@ def start_cmd(ctx: click.Context, password,bee_key_path) -> None:
     if tx_receipt["status"] !=1:
         print( "start fail ")
     else:
-        print( "start sucess ")
+        print( "start success ")
 
 @click.command("status", short_help="status nbzz")
 @click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)

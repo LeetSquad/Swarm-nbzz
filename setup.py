@@ -24,6 +24,7 @@ dependencies = [
     "pycryptodome",
     "web3",
     "py-solc-x",
+    "leveldb",
 ]
 
 upnp_dependencies = [
