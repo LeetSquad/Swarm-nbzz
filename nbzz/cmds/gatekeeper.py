@@ -66,8 +66,11 @@ def gatekeeper_cmd(ctx: click.Context, begain_user, password, bee_key_path) -> N
 
                 transfer_filter = nbzz_contract.events.Transfer.createFilter(fromBlock=last_check_block_number+1, toBlock=last_check_block_number+1, argument_filters={'_to': '0x0000000000000000000000000000000000000001'})
                 for event in transfer_filter.get_all_entries():
-                    pledge_set.remove(bytes.fromhex(event["args"]['_from'][2:]))
-                    print("remove address ",event["args"]['_from'],",all pledge:",len(pledge_set))
+                    try:
+                        pledge_set.remove(bytes.fromhex(event["args"]['_from'][2:]))
+                        print("remove address ",event["args"]['_from'],",all pledge:",len(pledge_set))
+                    except Exception as ex:
+                        print(ex)
 
                 last_check_block_number=last_check_block_number+1
             time.sleep(10)
@@ -85,8 +88,12 @@ def gatekeeper_cmd(ctx: click.Context, begain_user, password, bee_key_path) -> N
 
             transfer_filter = nbzz_contract.events.Transfer.createFilter(fromBlock=fromblock, toBlock=toblock, argument_filters={'_to': '0x0000000000000000000000000000000000000001'})
             all_event=transfer_filter.get_all_entries()
-            [pledge_set.remove(bytes.fromhex(event["args"]['_from'][2:])) for event in all_event ]
-            print(f"from { fromblock} to {toblock} add address num :{len(all_event)}")
+            for event in all_event:
+                try:
+                    pledge_set.remove(bytes.fromhex(event["args"]['_from'][2:]))
+                    print("remove address ",event["args"]['_from'],",all pledge:",len(pledge_set))
+                except Exception as ex:
+                    print(ex)
         now_block_number=last_send_block_number+spilt_block-1
         last_check_block_number=now_block_number
 
@@ -111,17 +118,23 @@ def gatekeeper_cmd(ctx: click.Context, begain_user, password, bee_key_path) -> N
                 right_eth_list.append(reth_address)
 
             if a_gatekeeper and ( now_block_number==last_send_block_number+spilt_block*2-1): #only for gatekepper
+                while True:
+                    try:
                 # Submit the transaction that deploys the contract
-                construct_txn  = nbzz_contract.functions.toDailyoutput(right_eth_list[-4*spilt_block:],now_block_number-spilt_block+1).buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":2900_0000})#0.5eth
-                print(construct_txn)
-                signed =my_local_acc.sign_transaction(construct_txn)
+                        construct_txn  = nbzz_contract.functions.toDailyoutput(right_eth_list[-4*spilt_block:],now_block_number-spilt_block+1).buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":2900_0000})#0.5eth
+                        print(construct_txn)
+                        signed =my_local_acc.sign_transaction(construct_txn)
 
-                tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)
-                # Wait for the transaction to be mined, and get the transaction receipt
-                tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+                        tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)
+                        # Wait for the transaction to be mined, and get the transaction receipt
+                        tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash,timeout=480)
 
-                print(tx_receipt)
-                last_send_block_number=now_block_number-spilt_block+1
+                        print(tx_receipt)
+                        last_send_block_number=now_block_number-spilt_block+1
+                        break
+                    except Exception as ex:
+                        print(ex)
+                    time.sleep(60)
 
             transfer_filter = nbzz_contract.events.Transfer.createFilter(fromBlock=now_block_number, toBlock=now_block_number, argument_filters={'_to': '0x0000000000000000000000000000000000000002'})
             for event in transfer_filter.get_all_entries():
@@ -130,8 +143,11 @@ def gatekeeper_cmd(ctx: click.Context, begain_user, password, bee_key_path) -> N
             
             transfer_filter = nbzz_contract.events.Transfer.createFilter(fromBlock=now_block_number, toBlock=now_block_number, argument_filters={'_to': '0x0000000000000000000000000000000000000001'})
             for event in transfer_filter.get_all_entries():
-                pledge_set.add(bytes.fromhex(event["args"]['_from'][2:]))
-                print("add address ",event["args"]['_from'],",all pledge:",len(pledge_set))
+                try:
+                    pledge_set.remove(bytes.fromhex(event["args"]['_from'][2:]))
+                    print("remove address ",event["args"]['_from'],",all pledge:",len(pledge_set))
+                except Exception as ex:
+                    print(ex)
 
             last_check_block_number=last_check_block_number+1
 
