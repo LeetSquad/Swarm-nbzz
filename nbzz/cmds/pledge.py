@@ -19,14 +19,14 @@ def add_cmd(ctx: click.Context, number, password,bee_key_path) -> None:
 @click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
 @click.option("-p", "--password",  type=str, prompt="input password of bee",help="password of bee")
 @click.pass_context
-def add_cmd(ctx: click.Context, password,bee_key_path) -> None:
+def unpack_cmd(ctx: click.Context, password,bee_key_path) -> None:
     unpack_pledge(password,bee_key_path)
 
 @pledge_cmd.command("disunpack", short_help="pledge nbzz")
 @click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
 @click.option("-p", "--password",  type=str, prompt="input password of bee",help="password of bee")
 @click.pass_context
-def add_cmd(ctx: click.Context,  password,bee_key_path) -> None:
+def disunpack_cmd(ctx: click.Context,  password,bee_key_path) -> None:
     disunpack_pledge(password,bee_key_path)
 
 @pledge_cmd.command("show", short_help="pledge nbzz")

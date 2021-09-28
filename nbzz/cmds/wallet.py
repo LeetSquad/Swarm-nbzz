@@ -6,7 +6,7 @@ from nbzz.cmds.wallet_funcs import wallet_transfer
 def wallet_cmd() -> None:
     pass
 
-@wallet_cmd.command("transfer", short_help="Get all transactions")
+@wallet_cmd.command("transfer", short_help="Send nbzz to other addresses")
 @click.option("-p", "--password",  type=str, prompt="input password of bee", help="password of bee")
 @click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
 @click.option("-a", "--amount", help="How much nbzz to send, in XDAI", type=int, required=True)
@@ -32,7 +32,7 @@ def public_cmd(bee_key_path) -> None:
     from .wallet_funcs import show_swarm_key
     show_swarm_key(bee_key_path)
 
-@wallet_cmd.command("balance", short_help="Get a wallet public address")
+@wallet_cmd.command("balance", short_help="View nbzz balance")
 @click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
 def public_cmd(bee_key_path) -> None:
     from .wallet_funcs import wallet_balance
