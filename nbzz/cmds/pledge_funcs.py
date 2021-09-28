@@ -1,67 +1,98 @@
 
-from nbzz.util.bee_key import decrypt_privatekey_from_bee_keyfile
+from nbzz.util.bee_key import decrypt_privatekey_from_bee_keyfile,keyfile
 from nbzz.util.config import load_config
-from pathlib import Path
 from web3 import Web3
 from typing import Dict
 from nbzz.util.default_root import DEFAULT_ROOT_PATH
-from nbzz.util.nbzz_abi import NBZZ_ABI
+from nbzz.rpc.xdai_rpc import connect_w3,get_glod_contract,get_model_contract,get_proxy_contract,send_transaction
 
-import click
-
-def pledge(number,password,bee_key_path):
+def add_pledge(number,password,bee_key_path):
     privatekey=decrypt_privatekey_from_bee_keyfile(bee_key_path,password)
-    print("wait for pledge")
+    print("Wait for pledge")
     config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
-    swap_url=config["swap_endpoint"]
-    if "http" ==swap_url[:4]:
-        w3=Web3(Web3.HTTPProvider(swap_url))
-    elif "ws" ==swap_url[:2]:
-        w3=Web3(Web3.WebsocketProvider(swap_url))
-    
-    if not w3.isConnected():
-        print("can't connect to swap endpoint")
-        exit(1)
+    w3=connect_w3(config["swap_endpoint"])
+
     my_local_acc=w3.eth.account.from_key(privatekey)
-    w3.eth.default_account=my_local_acc.address
-    nbzz_contract=w3.eth.contract(address=config["network_overrides"]["constants"][config["selected_network"]]["CONTRACT"],abi=NBZZ_ABI)
-    construct_txn = nbzz_contract.functions.contractPledge().buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":290_0000}) #pledge
-    print(construct_txn)
-    signed =my_local_acc.sign_transaction(construct_txn)
-    tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)
-    # Wait for the transaction to be mined, and get the transaction receipt
-    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    print(tx_receipt)
+
+    proxy_contract=get_proxy_contract(w3)
+    glod_contract=get_glod_contract(w3)
+
+    #approve
+    tx_receipt=send_transaction(w3,proxy_contract.functions.approve(glod_contract.address,Web3.toWei(number,"ether")),my_local_acc,print_info=False,gas=20_0000)
+    #print(tx_receipt)
     if tx_receipt["status"] !=1:
-        print( "pledge fail ")
+        print( "Approve fail ")
     else:
-        print( "pledge success ")
+        print( "Approve success ")
+    
+    tx_receipt = send_transaction(w3,glod_contract.functions.thePledge(Web3.toWei(number,"ether")),my_local_acc,print_info=False,gas=20_0000)
 
+    if tx_receipt["status"] !=1:
+        print( "Pledge fail ")
+    else:
+        print( "Pledge success ")
 
-def faucet(password,bee_key_path):
+def unpack_pledge(password,bee_key_path):
     privatekey=decrypt_privatekey_from_bee_keyfile(bee_key_path,password)
-    print("wait for faucet")
+    print("Wait for unpack")
     config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
-    swap_url=config["swap_endpoint"]
-    if "http" ==swap_url[:4]:
-        w3=Web3(Web3.HTTPProvider(swap_url))
-    elif "ws" ==swap_url[:2]:
-        w3=Web3(Web3.WebsocketProvider(swap_url))
-    
-    if not w3.isConnected():
-        print("can't connect to swap endpoint")
-        exit(1)
+    w3=connect_w3(config["swap_endpoint"])
+
     my_local_acc=w3.eth.account.from_key(privatekey)
-    w3.eth.default_account=my_local_acc.address
-    nbzz_contract=w3.eth.contract(address=config["network_overrides"]["constants"][config["selected_network"]]["CONTRACT"],abi=NBZZ_ABI)
-    construct_txn = nbzz_contract.functions.relief().buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":290_0000}) #faucet
-    print(construct_txn)
-    signed =my_local_acc.sign_transaction(construct_txn)
-    tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)
-    # Wait for the transaction to be mined, and get the transaction receipt
-    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
-    print(tx_receipt)
+
+    model_contract,_=get_model_contract(w3)
+
+    #approve
+    tx_receipt=send_transaction(w3,model_contract.functions.theUnpack(),my_local_acc,gas=40_0000)
+    #print(tx_receipt)
     if tx_receipt["status"] !=1:
-        print( "faucet fail ")
+        print( "Unpack fail ")
     else:
-        print( "faucet success ")
+        print( "Unpack success ")
+
+def disunpack_pledge(password,bee_key_path):
+    privatekey=decrypt_privatekey_from_bee_keyfile(bee_key_path,password)
+    print("Wait for disunpack")
+    config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
+    w3=connect_w3(config["swap_endpoint"])
+
+    my_local_acc=w3.eth.account.from_key(privatekey)
+
+    model_contract,_=get_model_contract(w3)
+
+    #approve
+    tx_receipt=send_transaction(w3,model_contract.functions.cancelTheUnpack(),my_local_acc,gas=40_0000)
+    #print(tx_receipt)
+    if tx_receipt["status"] !=1:
+        print( "Disunpack fail ")
+    else:
+        print( "Disunpack success ")
+
+def show_pledge(address,bee_key_path):
+    if address =="":
+        address= keyfile(bee_key_path)["address"]
+
+    address=Web3.toChecksumAddress(address)
+
+    config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
+
+    w3=connect_w3(config["swap_endpoint"])
+    
+    glod_contract=get_glod_contract(w3)
+
+    pledge_num=glod_contract.functions.balancesPledge(address).call()
+    return pledge_num
+def pledge_status(address,bee_key_path):
+    if address =="":
+        address= keyfile(bee_key_path)["address"]
+
+    address=Web3.toChecksumAddress(address)
+
+    config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
+
+    w3=connect_w3(config["swap_endpoint"])
+    
+    glod_contract=get_glod_contract(w3)
+
+    status=glod_contract.functions.unpackState(address).call()
+    return status

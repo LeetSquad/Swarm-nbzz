@@ -1,4 +1,4 @@
 import os
 from pathlib import Path
 
-DEFAULT_ROOT_PATH = Path(os.path.expanduser(os.getenv("NBZZ_ROOT", "~/.nbzz/stagenet2"))).resolve()
+DEFAULT_ROOT_PATH = Path(os.path.expanduser(os.getenv("NBZZ_ROOT", "~/.nbzz/mainnet"))).resolve()

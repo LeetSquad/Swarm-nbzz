@@ -1,144 +1,42 @@
-from typing import Optional
-
 import click
-
+from web3 import Web3
+from nbzz.cmds.wallet_funcs import wallet_transfer
 
 @click.group("wallet", short_help="Manage your wallet") 
 def wallet_cmd() -> None:
     pass
 
-
-@wallet_cmd.command("get_transaction", short_help="Get a transaction")
-@click.option(
-    "-wp",
-    "--wallet-rpc-port",
-    help="Set the port where the Wallet is hosting the RPC interface. See the rpc_port under wallet in config.yaml",
-    type=int,
-    default=None,
-)
-@click.option("-f", "--fingerprint", help="Set the fingerprint to specify which wallet to use", type=int)
-@click.option("-i", "--id", help="Id of the wallet to use", type=int, default=1, show_default=True, required=True)
-@click.option("-tx", "--tx_id", help="transaction id to search for", type=str, required=True)
-@click.option("--verbose", "-v", count=True, type=int)
-def get_transaction_cmd(wallet_rpc_port: Optional[int], fingerprint: int, id: int, tx_id: str, verbose: int) -> None:
-    extra_params = {"id": id, "tx_id": tx_id, "verbose": verbose}
-    import asyncio
-    from .wallet_funcs import execute_with_wallet, get_transaction
-
-    asyncio.run(execute_with_wallet(wallet_rpc_port, fingerprint, extra_params, get_transaction))
+@wallet_cmd.command("transfer", short_help="Get all transactions")
+@click.option("-p", "--password",  type=str, prompt="input password of bee", help="password of bee")
+@click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
+@click.option("-a", "--amount", help="How much nbzz to send, in XDAI", type=int, required=True)
+@click.option("-g","--gas",help="Set the fees for the transaction, in XDAI",type=int,default=0,show_default=True,)
+@click.option("-t", "--address", help="Address to send the nbzz", type=str, required=True)
+# @click.option("-o", "--override", help="Submits transaction without checking for unusual values", is_flag=True, default=False)
+def transfer_cmd(password,bee_key_path,amount: int, gas: int, address: str) -> None:
+    wallet_transfer(password,bee_key_path,amount, gas, address)
 
 
-@wallet_cmd.command("get_transactions", short_help="Get all transactions")
-@click.option(
-    "-wp",
-    "--wallet-rpc-port",
-    help="Set the port where the Wallet is hosting the RPC interface. See the rpc_port under wallet in config.yaml",
-    type=int,
-    default=None,
-)
-@click.option("-f", "--fingerprint", help="Set the fingerprint to specify which wallet to use", type=int)
-@click.option("-i", "--id", help="Id of the wallet to use", type=int, default=1, show_default=True, required=True)
-@click.option(
-    "-o",
-    "--offset",
-    help="Skip transactions from the beginning of the list",
-    type=int,
-    default=0,
-    show_default=True,
-    required=True,
-)
-@click.option("--verbose", "-v", count=True, type=int)
-def get_transactions_cmd(wallet_rpc_port: Optional[int], fingerprint: int, id: int, offset: int, verbose: bool) -> None:
-    extra_params = {"id": id, "verbose": verbose, "offset": offset}
-    import asyncio
-    from .wallet_funcs import execute_with_wallet, get_transactions
-
-    asyncio.run(execute_with_wallet(wallet_rpc_port, fingerprint, extra_params, get_transactions))
+@wallet_cmd.command("private", short_help="Get a wallet private address")
+@click.option("-p", "--password",  type=str, prompt="input password of bee", help="password of bee")
+@click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
+def private_cmd(password,bee_key_path):
+    from nbzz.util.bee_key import decrypt_privatekey_from_bee_keyfile
+    privatekey = decrypt_privatekey_from_bee_keyfile(bee_key_path, password)
+    print(privatekey)
 
 
-@wallet_cmd.command("send", short_help="Send nbzz to another wallet")
-@click.option(
-    "-wp",
-    "--wallet-rpc-port",
-    help="Set the port where the Wallet is hosting the RPC interface. See the rpc_port under wallet in config.yaml",
-    type=int,
-    default=None,
-)
-@click.option("-f", "--fingerprint", help="Set the fingerprint to specify which wallet to use", type=int)
-@click.option("-i", "--id", help="Id of the wallet to use", type=int, default=1, show_default=True, required=True)
-@click.option("-a", "--amount", help="How much nbzz to send, in XCH", type=str, required=True)
-@click.option(
-    "-m",
-    "--fee",
-    help="Set the fees for the transaction, in XCH",
-    type=str,
-    default="0",
-    show_default=True,
-    required=True,
-)
-@click.option("-t", "--address", help="Address to send the XCH", type=str, required=True)
-@click.option(
-    "-o", "--override", help="Submits transaction without checking for unusual values", is_flag=True, default=False
-)
-def send_cmd(
-    wallet_rpc_port: Optional[int], fingerprint: int, id: int, amount: str, fee: str, address: str, override: bool
-) -> None:
-    extra_params = {"id": id, "amount": amount, "fee": fee, "address": address, "override": override}
-    import asyncio
-    from .wallet_funcs import execute_with_wallet, send
+@wallet_cmd.command("public", short_help="Get a wallet public address")
+@click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
+def public_cmd(bee_key_path) -> None:
+    from .wallet_funcs import show_swarm_key
+    show_swarm_key(bee_key_path)
 
-    asyncio.run(execute_with_wallet(wallet_rpc_port, fingerprint, extra_params, send))
+@wallet_cmd.command("balance", short_help="Get a wallet public address")
+@click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
+def public_cmd(bee_key_path) -> None:
+    from .wallet_funcs import wallet_balance
+    balance=wallet_balance(bee_key_path)
+    print(f"Balance: {Web3.fromWei(balance,'ether')} nbzz")
 
 
-@wallet_cmd.command("show", short_help="Show wallet information")
-@click.option(
-    "-wp",
-    "--wallet-rpc-port",
-    help="Set the port where the Wallet is hosting the RPC interface. See the rpc_port under wallet in config.yaml",
-    type=int,
-    default=None,
-)
-@click.option("-f", "--fingerprint", help="Set the fingerprint to specify which wallet to use", type=int)
-def show_cmd(wallet_rpc_port: Optional[int], fingerprint: int) -> None:
-    import asyncio
-    from .wallet_funcs import execute_with_wallet, print_balances
-
-    asyncio.run(execute_with_wallet(wallet_rpc_port, fingerprint, {}, print_balances))
-
-
-@wallet_cmd.command("get_address", short_help="Get a wallet receive address")
-@click.option(
-    "-wp",
-    "--wallet-rpc-port",
-    help="Set the port where the Wallet is hosting the RPC interface. See the rpc_port under wallet in config.yaml",
-    type=int,
-    default=None,
-)
-@click.option("-i", "--id", help="Id of the wallet to use", type=int, default=1, show_default=True, required=True)
-@click.option("-f", "--fingerprint", help="Set the fingerprint to specify which wallet to use", type=int)
-def get_address_cmd(wallet_rpc_port: Optional[int], id, fingerprint: int) -> None:
-    extra_params = {"id": id}
-    import asyncio
-    from .wallet_funcs import execute_with_wallet, get_address
-
-    asyncio.run(execute_with_wallet(wallet_rpc_port, fingerprint, extra_params, get_address))
-
-
-@wallet_cmd.command(
-    "delete_unconfirmed_transactions", short_help="Deletes all unconfirmed transactions for this wallet ID"
-)
-@click.option(
-    "-wp",
-    "--wallet-rpc-port",
-    help="Set the port where the Wallet is hosting the RPC interface. See the rpc_port under wallet in config.yaml",
-    type=int,
-    default=None,
-)
-@click.option("-i", "--id", help="Id of the wallet to use", type=int, default=1, show_default=True, required=True)
-@click.option("-f", "--fingerprint", help="Set the fingerprint to specify which wallet to use", type=int)
-def delete_unconfirmed_transactions_cmd(wallet_rpc_port: Optional[int], id, fingerprint: int) -> None:
-    extra_params = {"id": id}
-    import asyncio
-    from .wallet_funcs import execute_with_wallet, delete_unconfirmed_transactions
-
-    asyncio.run(execute_with_wallet(wallet_rpc_port, fingerprint, extra_params, delete_unconfirmed_transactions))

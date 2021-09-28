@@ -1,434 +1,455 @@
-NBZZ_ABI =[
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'name',
-        'outputs': [{'name': '', 'type': 'string'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'baseStartTime',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [{'name': '_address', 'type': 'address[]'}],
-        'name': 'nodeConfirmationed',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [],
-        'name': 'killContract',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'seeTrustNode',
-        'outputs': [{'name': 'nodeaddress', 'type': 'address[]'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'blockAddressnumber',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [{'name': '_address', 'type': 'address'}],
-        'name': 'airdropOf',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [{'name': '', 'type': 'address'}],
-        'name': 'airdrop',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'lastBlockNumber',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'pledgeAddressAllPageNum',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'decimals',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [
-            {'name': '_addressa', 'type': 'address'},
-            {'name': '_addressb', 'type': 'string'}
-        ],
-        'name': 'nodeOnline',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': '_totalSupply',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [{'name': '_page', 'type': 'uint256'}],
-        'name': 'pledgeAddressAllPaged',
-        'outputs': [{'name': '', 'type': 'address[]'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'detPledgeAmount',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'founder',
-        'outputs': [{'name': '', 'type': 'address'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'allPledgeOf',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'pledgeAmount',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [{'name': '_address', 'type': 'address'}],
-        'name': 'deductionOfPledge',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [
-            {'name': '_nodeaddress', 'type': 'address[]'},
-            {'name': '_blocknumber', 'type': 'uint256'}
-        ],
-        'name': 'toDailyoutput',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [],
-        'name': 'contractPledge',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [{'name': '_address', 'type': 'address'}],
-        'name': 'deltrustNode',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [{'name': '_address', 'type': 'address'}],
-        'name': 'seeTrustNodeDetails',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [{'name': '_bool', 'type': 'bool'}],
-        'name': 'setgetSwitchOf',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [{'name': '_address', 'type': 'address'}],
-        'name': 'balanceOf',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [{'name': '_address', 'type': 'address'}],
-        'name': 'nodeState',
-        'outputs': [
-            {'name': '', 'type': 'bool'},
-            {'name': '', 'type': 'bool'},
-            {'name': '', 'type': 'address'},
-            {'name': '', 'type': 'string'}
-        ],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'Airdropped',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'symbol',
-        'outputs': [{'name': '', 'type': 'string'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [{'name': '_address', 'type': 'address[]'}],
-        'name': 'nodeAllOffline',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [
-            {'name': '_to', 'type': 'address'},
-            {'name': '_value', 'type': 'uint256'}
-        ],
-        'name': 'transfer',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'blockYield',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'airdroppedOf',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [
-            {'name': '_address', 'type': 'address'},
-            {'name': '_amount', 'type': 'uint256'}
-        ],
-        'name': 'releaseWater',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [{'name': '', 'type': 'uint256'}],
-        'name': 'trustNodes',
-        'outputs': [{'name': '', 'type': 'address'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'blockInterval',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [{'name': '_address', 'type': 'address'}],
-        'name': 'pledgeOf',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [{'name': '_address', 'type': 'address'}],
-        'name': 'setTrustNode',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'pledgeAddressAllNum',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [],
-        'name': 'relief',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'getSwitchOf',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': False,
-        'inputs': [],
-        'name': 'nodeOffline',
-        'outputs': [{'name': '', 'type': 'bool'}],
-        'payable': False,
-        'stateMutability': 'nonpayable',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'distributed',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {
-        'constant': True,
-        'inputs': [],
-        'name': 'startBlockHeight',
-        'outputs': [{'name': '', 'type': 'uint256'}],
-        'payable': False,
-        'stateMutability': 'view',
-        'type': 'function'
-    },
-    {'inputs': [], 'payable': False, 'stateMutability': 'nonpayable', 'type': 'constructor'},
-    {'payable': True, 'stateMutability': 'payable', 'type': 'fallback'},
-    {
-        'anonymous': False,
-        'inputs': [{'indexed': True, 'name': 'sender', 'type': 'address'}],
-        'name': 'AllocateFounderTokens',
-        'type': 'event'
-    },
-    {
-        'anonymous': False,
-        'inputs': [
-            {'indexed': True, 'name': '_from', 'type': 'address'},
-            {'indexed': True, 'name': '_to', 'type': 'address'},
-            {'indexed': False, 'name': '_value', 'type': 'uint256'}
-        ],
-        'name': 'Transfer',
-        'type': 'event'
-    },
-    {
-        'anonymous': False,
-        'inputs': [
-            {'indexed': True, 'name': '_owner', 'type': 'address'},
-            {'indexed': True, 'name': '_spender', 'type': 'address'},
-            {'indexed': False, 'name': '_value', 'type': 'uint256'}
-        ],
-        'name': 'Approval',
-        'type': 'event'
-    }
+MODEL_ABI=[
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "setNumberOfPenalties",
+    "inputs": [{ "type": "uint256", "name": "_amount" }],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "cancelTheUnpack",
+    "inputs": [],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "baseStartTime",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "nodeConfirmationed",
+    "inputs": [{ "type": "address[]", "name": "_address" }],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "address[]", "name": "nodeaddress" }],
+    "name": "seeTrustNode",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "lastBlockNumber",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "allNum",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "address[]", "name": "nodeaddress" }],
+    "name": "seeFishingNode",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "NumberOfNodesOnline",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "penaltyNode",
+    "inputs": [{ "type": "address", "name": "_address" }],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "decimals",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "nodeOnline",
+    "inputs":
+      [
+        { "type": "address", "name": "_addressa" },
+        { "type": "string", "name": "_addressb" },
+      ],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "setPledgeAmount",
+    "inputs": [{ "type": "uint256", "name": "_amount" }],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "seeFishingNodeDetails",
+    "inputs": [{ "type": "address", "name": "_address" }],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "setFishingNode",
+    "inputs": [{ "type": "address", "name": "_address" }],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "pledgeAmount",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "NumberOfPenalties",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "toDailyoutput",
+    "inputs":
+      [
+        { "type": "address[]", "name": "_nodeaddress" },
+        { "type": "uint256", "name": "_blocknumber" },
+      ],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "seeTrustNodeDetails",
+    "inputs": [{ "type": "address", "name": "_address" }],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs":
+      [
+        { "type": "bool", "name": "status" },
+        { "type": "bool", "name": "ishave" },
+        { "type": "uint256", "name": "lastBlockNumber" },
+      ],
+    "name": "trustNode",
+    "inputs": [{ "type": "address", "name": "" }],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs":
+      [
+        { "type": "bool", "name": "a" },
+        { "type": "bool", "name": "b" },
+        { "type": "address", "name": "c" },
+        { "type": "string", "name": "d" },
+      ],
+    "name": "nodeState",
+    "inputs": [{ "type": "address", "name": "_address" }],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "delFishingNode",
+    "inputs": [{ "type": "address", "name": "_address" }],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "nodeAllOffline",
+    "inputs": [{ "type": "address[]", "name": "_address" }],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "technicalupnum",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "setBlockInterval",
+    "inputs": [{ "type": "uint256", "name": "_blockInterval" }],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "address", "name": "" }],
+    "name": "trustNodes",
+    "inputs": [{ "type": "uint256", "name": "" }],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "blockInterval",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "OnlineNumber",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "setTrustNode",
+    "inputs": [{ "type": "address", "name": "_address" }],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "delTrustNode",
+    "inputs": [{ "type": "address", "name": "_address" }],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "address", "name": "" }],
+    "name": "fishingNodes",
+    "inputs": [{ "type": "uint256", "name": "" }],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "nodeOffline",
+    "inputs": [],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "technicalupTime",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "theUnpack",
+    "inputs": [],
+    "constant": False,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "bool", "name": "" }],
+    "name": "BlockReleaseState",
+    "inputs": [{ "type": "uint256", "name": "" }],
+    "constant": True,
+  },
+  {
+    "type": "function",
+    "stateMutability": "view",
+    "payable": False,
+    "outputs": [{ "type": "uint256", "name": "" }],
+    "name": "startBlockHeight",
+    "inputs": [],
+    "constant": True,
+  },
+  {
+    "type": "constructor",
+    "stateMutability": "nonpayable",
+    "payable": False,
+    "inputs": [],
+  },
+  {
+    "type": "event",
+    "name": "addingATrustNode",
+    "inputs": [{ "type": "address", "name": "_address", "indexed": False }],
+    "anonymous": False,
+  },
+  {
+    "type": "event",
+    "name": "deletingATrustedNode",
+    "inputs": [{ "type": "address", "name": "_address", "indexed": False }],
+    "anonymous": False,
+  },
+  {
+    "type": "event",
+    "name": "nodeOnlineOf",
+    "inputs": [{ "type": "address", "name": "_address", "indexed": False }],
+    "anonymous": False,
+  },
+  {
+    "type": "event",
+    "name": "nodeOfflineOf",
+    "inputs": [{ "type": "address", "name": "_address", "indexed": False }],
+    "anonymous": False,
+  },
+  {
+    "type": "event",
+    "name": "nodeConfirmOf",
+    "inputs": [{ "type": "address", "name": "_address", "indexed": False }],
+    "anonymous": False,
+  },
+  {
+    "type": "event",
+    "name": "PunishmentNode",
+    "inputs":
+      [
+        { "type": "address", "name": "_address", "indexed": False },
+        { "type": "uint256", "name": "_amount", "indexed": False },
+      ],
+    "anonymous": False,
+  },
+  {
+    "type": "event",
+    "name": "nodeReward",
+    "inputs":
+      [
+        { "type": "address", "name": "_address", "indexed": False },
+        { "type": "uint256", "name": "_blocknumber", "indexed": False },
+      ],
+    "anonymous": False,
+  },
+]
+
+GLOD_ABI =[{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"string","name":""}],"name":"name","inputs":[],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"unpackToExtract","inputs":[],"constant":False},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"releaseTechnologyLockup","inputs":[{"type":"uint256","name":"_amount"},{"type":"uint256","name":"_NumberOfNodesOnline"}],"constant":False},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"dropThePledge","inputs":[{"type":"address[]","name":"_address"},{"type":"uint256[]","name":"_amount"}],"constant":False},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"cancelTheUnpack","inputs":[{"type":"address","name":"_address"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"balancesPledge","inputs":[{"type":"address","name":""}],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"lockupRelease","inputs":[{"type":"address","name":"_address"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"contractOf","inputs":[],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"distributeFrom","inputs":[{"type":"uint256","name":"_amount"},{"type":"address","name":"_to"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"decimals","inputs":[],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"TheTotalDrop","inputs":[],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"airdropQuantity","inputs":[{"type":"address","name":""}],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"distribute","inputs":[{"type":"uint256[]","name":"_amount"},{"type":"address[]","name":"_to"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"setlockupRelease","inputs":[{"type":"address","name":"_address"}],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":"number"},{"type":"uint256","name":"times"}],"name":"unpackState","inputs":[{"type":"address","name":"_address"}],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"contractBalancesPledge","inputs":[],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"address","name":""}],"name":"founder","inputs":[],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"address","name":""}],"name":"setTechnologyAddress","inputs":[{"type":"address","name":"_address"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"balanceOf","inputs":[{"type":"address","name":"_address"}],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"remaininglockupRelease","inputs":[{"type":"address","name":"_address"}],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"addLockup","inputs":[{"type":"address","name":"_address"},{"type":"uint256","name":"_amount"},{"type":"uint256","name":"_block"}],"constant":False},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"punishment","inputs":[{"type":"address","name":"_address"},{"type":"uint256","name":"_amount"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"address","name":""}],"name":"technologyAddress","inputs":[],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"string","name":""}],"name":"symbol","inputs":[],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"balancesLockup","inputs":[{"type":"address","name":""}],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"TheTotalDropOn","inputs":[],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"addAddressWhitelist","inputs":[{"type":"address","name":"_address"}],"constant":False},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"deleteAddressWhitelist","inputs":[{"type":"address","name":"_address"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256[]","name":"a"},{"type":"uint256[]","name":"b"},{"type":"uint256[]","name":"c"},{"type":"uint256[]","name":"d"}],"name":"lockupDetail","inputs":[{"type":"address","name":"_address"}],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"bool","name":""}],"name":"pledged","inputs":[],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"setPledged","inputs":[{"type":"bool","name":"_bool"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"minPledgeBlock","inputs":[{"type":"address","name":""}],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"thePledge","inputs":[{"type":"uint256","name":"_amount"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"contractBalancesLockup","inputs":[],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"freezingTimeOf","inputs":[{"type":"address","name":""}],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"freezingNumber","inputs":[{"type":"address","name":""}],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"address","name":""}],"name":"modifyOwnerFounder","inputs":[{"type":"address","name":"newFounder"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"address[]","name":""}],"name":"checkAddressWhitelist","inputs":[],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"technologyLockUp","inputs":[],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"theUnpack","inputs":[{"type":"address","name":"_address"}],"constant":False},{"type":"constructor","stateMutability":"nonpayable","payable":False,"inputs":[{"type":"string","name":"_name"},{"type":"string","name":"_symbol"},{"type":"uint256","name":"_decimals"},{"type":"uint256","name":"_technologyLockUp"},{"type":"address","name":"_technologyAddress"},{"type":"uint256","name":"_TheTotalDrop"}]}]
+
+ALIAS_ABI=[{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"baseStartTime","inputs":[],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"bool","name":""}],"name":"killContract","inputs":[],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"mappingNumOf","inputs":[{"type":"address","name":"_address"}],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"address","name":""}],"name":"addressMappingOf","inputs":[{"type":"address","name":"_address"}],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"AddressAllPageNumOf","inputs":[],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"string","name":""}],"name":"addressAliasOf","inputs":[{"type":"address","name":"_address"}],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"address","name":""}],"name":"founder","inputs":[],"constant":True},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"address","name":""}],"name":"setAddressMapping","inputs":[{"type":"address","name":"_address"}],"constant":False},{"type":"function","stateMutability":"nonpayable","payable":False,"outputs":[{"type":"string","name":""}],"name":"setAddressAlias","inputs":[{"type":"string","name":"_string"}],"constant":False},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"AddressAllNum","inputs":[],"constant":True},{"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"address[]","name":""}],"name":"AddressAllPaged","inputs":[{"type":"uint256","name":"_page"}],"constant":True},{"type":"constructor","stateMutability":"nonpayable","payable":False,"inputs":[]}]
+
+PROXY_ABI=[
+	{
+		"constant": False,
+		"inputs": [
+			{
+				"name": "_spender",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "approve",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": False,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": False,
+		"inputs": [
+			{
+				"name": "_to",
+				"type": "address"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": False,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+  {"type":"function","stateMutability":"view","payable":False,"outputs":[{"type":"uint256","name":""}],"name":"balanceOf","inputs":[{"type":"address","name":"_address"}],"constant":True},
 ]

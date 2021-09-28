@@ -4,16 +4,15 @@ from nbzz import __version__
 from nbzz.cmds.configure import configure_cmd
 #from nbzz.cmds.farm import farm_cmd
 from nbzz.cmds.init import init_cmd
-from nbzz.cmds.keys import keys_cmd
+#from nbzz.cmds.keys import keys_cmd
 #from nbzz.cmds.netspace import netspace_cmd
 #from nbzz.cmds.plots import plots_cmd
 #from nbzz.cmds.show import show_cmd
 from nbzz.cmds.pledge import pledge_cmd
-from nbzz.cmds.pledge_funcs import faucet
 from nbzz.cmds.gatekeeper import gatekeeper_cmd
 from nbzz.cmds.start import start_cmd,status_cmd
 from nbzz.cmds.stop import stop_cmd
-#from nbzz.cmds.wallet import wallet_cmd
+from nbzz.cmds.wallet import wallet_cmd
 #from nbzz.cmds.plotnft import plotnft_cmd
 from nbzz.util.default_root import DEFAULT_ROOT_PATH
 
@@ -54,12 +53,6 @@ def cli(ctx: click.Context, root_path: str) -> None:
 def version_cmd() -> None:
     print(__version__)
 
-@cli.command("faucet", short_help="get some gnbzz , only use for testnet")
-@click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
-@click.option("-p", "--password",  type=str, prompt="input password of bee",help="password of bee")
-@click.pass_context
-def faucet_cmd(ctx: click.Context,password,bee_key_path) -> None:
-    faucet(password,bee_key_path)
 
 
 # @cli.command("run_daemon", short_help="Runs nbzz daemon")
@@ -71,9 +64,8 @@ def faucet_cmd(ctx: click.Context,password,bee_key_path) -> None:
 #     asyncio.get_event_loop().run_until_complete(async_run_daemon(ctx.obj["root_path"]))
 
 
-cli.add_command(keys_cmd)
 #cli.add_command(plots_cmd)
-#cli.add_command(wallet_cmd)
+cli.add_command(wallet_cmd)
 #cli.add_command(plotnft_cmd)
 cli.add_command(configure_cmd)
 cli.add_command(init_cmd)

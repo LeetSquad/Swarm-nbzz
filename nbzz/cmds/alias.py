@@ -1,42 +1,88 @@
 import click
 import web3
+from web3.main import Web3
 from nbzz.util.bee_key import decrypt_privatekey_from_bee_keyfile,keyfile
 from nbzz.util.config import load_config
-from web3 import Web3
 from typing import Dict
 from nbzz.util.default_root import DEFAULT_ROOT_PATH
-from nbzz.util.nbzz_abi import NBZZ_ABI
-import eth_keyfile
+from nbzz.rpc.xdai_rpc import connect_w3,get_alias_contract,send_transaction
 
-@click.command("alias", short_help="set alias")
+@click.group("alias", short_help="Manage your alias")
+@click.pass_context
+def alias_cmd(ctx: click.Context):
+    """View and use your alias"""
+    from pathlib import Path
+
+    root_path: Path = ctx.obj["root_path"]
+    if not root_path.is_dir():
+        raise RuntimeError("Please initialize (or migrate) your config directory with nbzz init")
+
+@alias_cmd.command("set-alias", short_help="set alias")
 @click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
 @click.option("-p", "--password",  type=str, prompt="input password of bee",help="password of bee")
 @click.option("-a", "--alias",  type=str, prompt="set alias",help="set alias")
 @click.pass_context
-def alias_cmd(ctx: click.Context, password,bee_key_path,alias) -> None:
+def set_alias_cmd(ctx: click.Context, password,bee_key_path,alias) -> None:
     privatekey=decrypt_privatekey_from_bee_keyfile(bee_key_path,password)
-    print("wait for start")
+    print("wait for set alias")
     config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
-    swap_url=config["swap_endpoint"]
-    if "http" ==swap_url[:4]:
-        w3=Web3(Web3.HTTPProvider(swap_url))
-    elif "ws" ==swap_url[:2]:
-        w3=Web3(Web3.WebsocketProvider(swap_url))
-    
-    if not w3.isConnected():
-        print("can't connect to swap endpoint")
-        exit(1)
+
+    w3=connect_w3(config["swap_endpoint"])
+
     my_local_acc=w3.eth.account.from_key(privatekey)
-    w3.eth.default_account=my_local_acc.address
-    nbzz_contract=w3.eth.contract(address=config["network_overrides"]["constants"][config["selected_network"]]["CONTRACT"],abi=NBZZ_ABI)
-    construct_txn = nbzz_contract.functions.setAddressAlias(alias).buildTransaction({"nonce":w3.eth.getTransactionCount(my_local_acc.address),"gas":290_0000}) #alias
-    print(construct_txn)
-    signed =my_local_acc.sign_transaction(construct_txn)
-    tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)
-    # Wait for the transaction to be mined, and get the transaction receipt
-    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    
+    alias_contract=get_alias_contract(w3)
+
+    tx_receipt=send_transaction(w3,alias_contract.functions.setAddressAlias(alias),my_local_acc,gas=290_0000)#alias
+
     print(tx_receipt)
     if tx_receipt["status"] !=1:
         print( "set alias fail ")
     else:
         print( "set alias success ")
+
+@alias_cmd.command("set-address", short_help="set address")
+@click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
+@click.option("-p", "--password",  type=str, prompt="input password of bee",help="password of bee")
+@click.option("-a", "--address",  type=str, prompt="set address",help="set address")
+@click.pass_context
+def set_address_cmd(ctx: click.Context, password,bee_key_path,address) -> None:
+    privatekey=decrypt_privatekey_from_bee_keyfile(bee_key_path,password)
+    print("wait for set address")
+    config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
+
+    w3=connect_w3(config["swap_endpoint"])
+
+    my_local_acc=w3.eth.account.from_key(privatekey)
+    
+    alias_contract=get_alias_contract(w3)
+
+    set_address=Web3.toChecksumAddress(address)
+    tx_receipt=send_transaction(w3,alias_contract.functions.setAddressMapping(set_address),my_local_acc,gas=290_0000)#alias
+
+    print(tx_receipt)
+    if tx_receipt["status"] !=1:
+        print( "set address fail ")
+    else:
+        print( "set address success ")
+
+@alias_cmd.command("show", short_help="set address")
+@click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
+@click.option("-a", "--address",  type=str, default="",help="check address")
+@click.pass_context
+def show_cmd(ctx: click.Context, bee_key_path,address) -> None:
+    if address =="":
+        address= keyfile(bee_key_path)["address"]
+
+    address=Web3.toChecksumAddress(address)
+
+    config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
+
+    w3=connect_w3(config["swap_endpoint"])
+    
+    alias_contract=get_alias_contract(w3)
+
+    map_address=alias_contract.functions.addressMappingOf(address).call()
+    addressAlias=alias_contract.functions.addressAliasOf(address).call()
+
+    print(f"map address:{map_address}, alias: {addressAlias}")

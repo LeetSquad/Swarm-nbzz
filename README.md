@@ -52,7 +52,5 @@ Once installed, run `nbzz init`.
 nbzz running in the goerli testnet ,to running nbzz ,you do need some geth.  
 
 then `cd /path_to_bee/` ,you will see keys dir in there.  
-then run `nbzz faucet -p you-bee-password` to get some nbzz for pledge.  
-then run `nbzz pledge -p you-bee-password` to pledge some nbzz for start   
-mining.  
+then run `nbzz pledge add -p you-bee-password` to pledge some nbzz.
 the run  `nbzz start -p you-bee-password` to  start mining.

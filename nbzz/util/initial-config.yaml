@@ -2,14 +2,17 @@
 self_hostname: &self_hostname "localhost"
 inbound_rate_limit_percent: 100
 outbound_rate_limit_percent: 30
-swap_endpoint:  'https://rpc.goerli.mudit.blog'
+swap_endpoint:  'https://rpc.xdaichain.com/'
 bee_swarm_key_path: "./keys/swarm.key"
 network_overrides: &network_overrides
   constants:
     mainnet:
       NETWORK_TYPE: 0
-      CONTRACT: ""
-      BLOCKHEIGHT: 5298700
+      CONTRACT_GLOD: "0x399251C48F94Ace8736b6bd7Ab029ac53971043D"
+      CONTRACT_ALIAS: "0x41e2Ca2B9C93bb460E5AeBF3dfF9ebcA9Ab8be5e"
+      CONTRACT_PROXY: "0x6cCCc6C3ece1CEB7671c5C5DE08Ce1715936B66D"
+      CONTRACT_MODEL: "0x5FCf5239A67F60E86f5BfEc03b0AAEf74fC9d462"
+      BLOCKHEIGHT: 18300177
     testnet0:
       NETWORK_TYPE: 1
       CONTRACT: "0x30d9ED9054681c56BF3cff638b4F3109ed06339A"
@@ -28,7 +31,7 @@ network_overrides: &network_overrides
     testnet0:
       address_prefix: "gnbzz"
 
-selected_network: &selected_network "testnet2"
+selected_network: &selected_network "mainnet"
 
 # public ssl ca is included in source code
 # Private ssl ca is used for trusted connections between machines user owns
