@@ -22,14 +22,14 @@ def add_pledge(number,password,bee_key_path):
         print(f"ERROR: The balance of nbzz is {nbzz_balance} and less than {number}, which cannot be pledged")
         exit(1)
     #approve
-    tx_receipt=send_transaction(w3,proxy_contract.functions.approve(glod_contract.address,Web3.toWei(number,"ether")),my_local_acc,print_info=False,gas=20_0000)
+    tx_receipt=send_transaction(w3,proxy_contract.functions.approve(glod_contract.address,Web3.toWei(number,"ether")),my_local_acc,print_info=False)
     #print(tx_receipt)
     if tx_receipt["status"] !=1:
         print( "Approve fail ")
     else:
         print( "Approve success ")
     
-    tx_receipt = send_transaction(w3,glod_contract.functions.thePledge(Web3.toWei(number,"ether")),my_local_acc,print_info=False,gas=20_0000)
+    tx_receipt = send_transaction(w3,glod_contract.functions.thePledge(Web3.toWei(number,"ether")),my_local_acc,print_info=False)
 
     if tx_receipt["status"] !=1:
         print( "Pledge fail ")
