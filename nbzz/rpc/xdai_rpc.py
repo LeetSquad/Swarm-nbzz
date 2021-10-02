@@ -65,7 +65,7 @@ def get_proxy_contract(w3):
     proxy_contract=w3.eth.contract(address=contract_address,abi=nbzz_abi.PROXY_ABI)
     return proxy_contract
 
-def send_transaction(w3:Web3,construct,account:web3.Account,gas=None,print_info=True):
+def send_transaction(w3:Web3,construct,account:web3.Account,gas=None,print_info=True,timeout=120):
 
     tran_dict={"from":account.address,"nonce":w3.eth.getTransactionCount(account.address)}
     if gas: tran_dict["gas"] = gas
@@ -76,6 +76,6 @@ def send_transaction(w3:Web3,construct,account:web3.Account,gas=None,print_info=
     signed =account.sign_transaction(construct_txn)
     tx_hash = w3.eth.sendRawTransaction(signed.rawTransaction)
     # Wait for the transaction to be mined, and get the transaction receipt
-    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash,timeout)
 
     return tx_receipt

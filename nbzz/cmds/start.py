@@ -30,7 +30,7 @@ def start_cmd(ctx: click.Context, password,bee_key_path,bee_statestore_path) -> 
         print("ERROR: The pledge nbzz amount is less than 15.")
         exit(1)
     nodestate=model_contract.functions.nodeState(my_local_acc.address).call()
-    if nodestate[0]:
+    if nodestate[0] and overlay_address==nodestate[3]:
         print("Nbzz already start")
         exit(0)
 
@@ -44,16 +44,19 @@ def start_cmd(ctx: click.Context, password,bee_key_path,bee_statestore_path) -> 
 
 @click.command("status", short_help="status nbzz")
 @click.option("--bee-key-path", default="./keys/swarm.key", help="Config file root", type=click.Path(exists=True), show_default=True)
+@click.option("--bee-statestore-path", default="./statestore", help="Config statestore path", type=click.Path(exists=True), show_default=True)
 @click.pass_context
-def status_cmd(ctx: click.Context, bee_key_path) -> None:
+def status_cmd(ctx: click.Context, bee_key_path,bee_statestore_path) -> None:
     config: Dict = load_config(DEFAULT_ROOT_PATH, "config.yaml")
+    db=leveldb.LevelDB(bee_statestore_path)
+    overlay_address=db.Get(b"non-mineable-overlay").decode().strip('"')
     w3=connect_w3(config["swap_endpoint"])
     model_contract,_=get_model_contract(w3)
     eth_address=Web3.toChecksumAddress(keyfile(bee_key_path)["address"])
     nbzz_status=model_contract.functions.nodeState(eth_address).call()
     if nbzz_status[1]:
         print("Nbzz Mining")
-    elif nbzz_status[0]:
+    elif nbzz_status[0] and overlay_address==nbzz_status[3]:
         print("Nbzz running")
     else:
         print("Nbzz not running")
