@@ -4,6 +4,6 @@ try:
     __version__ = get_distribution("nbzz-blockchain").version
 except DistributionNotFound:
     # package is not installed
-    __version__ = "1.0.3"
+    __version__ = "1.0.4"
 
 PYINSTALLER_SPEC_PATH = resource_filename("nbzz", "pyinstaller.spec")
