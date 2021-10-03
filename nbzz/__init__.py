@@ -5,6 +5,6 @@ try:
 except DistributionNotFound:
     # package is not installed
 
-    __version__ = "1.0.4"
+    __version__ = "1.0.5"
 
 PYINSTALLER_SPEC_PATH = resource_filename("nbzz", "pyinstaller.spec")

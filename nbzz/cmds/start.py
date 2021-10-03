@@ -13,13 +13,19 @@ class statestore_dir():
     def __init__(self,bee_statestore_path):
         self.s_statestore_path=Path(bee_statestore_path)
         self.c_statestore_path=self.s_statestore_path.parent/".nbzz_statetore_temp"
+        if self.c_statestore_path.exists():
+            shutil.rmtree(self.c_statestore_path)
         self.db=None
     def DB(self):
         self.db=plyvel.DB(str(self.c_statestore_path))
         return self.db
     def get_overlay(self):
         db=self.DB()
-        overlay_address=db.get(b"non-mineable-overlay").decode().strip('"')
+        overlay_address=db.get(b"non-mineable-overlay")
+        if overlay_address is None:
+            print("ERROR: chequebook not deployed by bee")
+            exit(1)
+        overlay_address=overlay_address.decode().strip('"')
         return overlay_address
     def __enter__(self):
         shutil.copytree(self.s_statestore_path,self.c_statestore_path)
