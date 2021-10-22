@@ -16,7 +16,7 @@ def stop_cmd(ctx: click.Context, password,bee_key_path) -> None:
     w3=connect_w3(config["swap_endpoint"])
 
     my_local_acc=w3.eth.account.from_key(privatekey)
-    model_contract,_=get_model_contract(w3)
+    model_contract=get_model_contract(w3)
 
     nodestate=model_contract.functions.nodeState(my_local_acc.address).call()
     if not nodestate[0]:

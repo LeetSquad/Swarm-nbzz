@@ -6,6 +6,9 @@ __pycache__/
 /contract
 /dist
 /economy
+/keys
+/statestore
+/nodecache
 # C extensions
 *.so
 **/*.o

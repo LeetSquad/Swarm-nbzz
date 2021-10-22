@@ -44,7 +44,7 @@ def unpack_pledge(password,bee_key_path):
 
     my_local_acc=w3.eth.account.from_key(privatekey)
 
-    model_contract,_=get_model_contract(w3)
+    model_contract=get_model_contract(w3)
 
     #approve
     tx_receipt=send_transaction(w3,model_contract.functions.theUnpack(),my_local_acc,gas=40_0000)
@@ -62,7 +62,7 @@ def disunpack_pledge(password,bee_key_path):
 
     my_local_acc=w3.eth.account.from_key(privatekey)
 
-    model_contract,_=get_model_contract(w3)
+    model_contract=get_model_contract(w3)
 
     #approve
     tx_receipt=send_transaction(w3,model_contract.functions.cancelTheUnpack(),my_local_acc,gas=40_0000)

@@ -4,6 +4,7 @@ from nbzz import __version__
 from nbzz.cmds.configure import configure_cmd
 from nbzz.cmds.init import init_cmd
 from nbzz.cmds.alias import alias_cmd
+from nbzz.cmds.lockup import lockup_cmd
 from nbzz.cmds.pledge import pledge_cmd
 from nbzz.cmds.gatekeeper import gatekeeper_cmd
 from nbzz.cmds.start import start_cmd,status_cmd
@@ -68,7 +69,7 @@ cli.add_command(gatekeeper_cmd)
 cli.add_command(start_cmd)
 cli.add_command(status_cmd)
 cli.add_command(stop_cmd)
-
+cli.add_command(lockup_cmd)
 
 
 def main() -> None:

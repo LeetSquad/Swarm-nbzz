@@ -6,13 +6,17 @@ swap_endpoint:  'https://rpc.xdaichain.com/'
 bee_swarm_key_path: "./keys/swarm.key"
 network_overrides: &network_overrides
   constants:
-    mainnet:
+    mainnet1:
       NETWORK_TYPE: 0
       CONTRACT_GLOD: "0x399251C48F94Ace8736b6bd7Ab029ac53971043D"
       CONTRACT_ALIAS: "0x41e2Ca2B9C93bb460E5AeBF3dfF9ebcA9Ab8be5e"
       CONTRACT_PROXY: "0x6cCCc6C3ece1CEB7671c5C5DE08Ce1715936B66D"
-      CONTRACT_MODEL: "0x5FCf5239A67F60E86f5BfEc03b0AAEf74fC9d462"
-      BLOCKHEIGHT: 18300177
+      CONTRACT_LOCK: "0xCf37cE468327A9cdf6CAa373859dC946B916A3d6" 
+      CONTRACT_MODEL: "0x47d9Bc9403C565Dac505F30f4bB7026438BAa9a5"
+      CONTRACT_MODEL0: "0x5FCf5239A67F60E86f5BfEc03b0AAEf74fC9d462"
+      BLOCKHEIGHT: 18695471
+      BLOCKHEIGHT0: 18300177
+      NEW_FILTER: 18374673
     testnet0:
       NETWORK_TYPE: 1
       CONTRACT: "0x30d9ED9054681c56BF3cff638b4F3109ed06339A"
@@ -31,7 +35,7 @@ network_overrides: &network_overrides
     testnet0:
       address_prefix: "gnbzz"
 
-selected_network: &selected_network "mainnet"
+selected_network: &selected_network "mainnet1"
 
 # public ssl ca is included in source code
 # Private ssl ca is used for trusted connections between machines user owns

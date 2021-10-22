@@ -53,12 +53,13 @@ def start_cmd(ctx: click.Context, password,bee_key_path,bee_statestore_path) -> 
 
     my_local_acc=w3.eth.account.from_key(privatekey)
     print(f"eth_address: {my_local_acc.address}")
-    model_contract,_=get_model_contract(w3)
+    model_contract=get_model_contract(w3)
     pledgenum=show_pledge(my_local_acc.address,"")
     if Web3.fromWei(pledgenum,"ether")<15:
         print("ERROR: The pledge nbzz amount is less than 15.")
         exit(1)
     nodestate=model_contract.functions.nodeState(my_local_acc.address).call()
+    nodestate[3]=nodestate[3].hex()
     if nodestate[0] and overlay_address==nodestate[3]:
         print("Nbzz already start")
         exit(0)
@@ -80,9 +81,10 @@ def status_cmd(ctx: click.Context, bee_key_path,bee_statestore_path) -> None:
     with statestore_dir(bee_statestore_path) as statestoredb:
         overlay_address=statestoredb.get_overlay()
     w3=connect_w3(config["swap_endpoint"])
-    model_contract,_=get_model_contract(w3)
+    model_contract=get_model_contract(w3)
     eth_address=Web3.toChecksumAddress(keyfile(bee_key_path)["address"])
     nbzz_status=model_contract.functions.nodeState(eth_address).call()
+    nbzz_status[3]=nbzz_status[3].hex()
     if nbzz_status[1]:
         print("Nbzz Mining")
     elif nbzz_status[0] and overlay_address==nbzz_status[3]:
