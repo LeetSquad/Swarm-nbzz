@@ -22,7 +22,7 @@ dependencies = [
     "eth_keyfile",
     "scrypt",
     "pycryptodome",
-    "web3",
+    "web3==5.23.0",
     "py-solc-x",
     "plyvel",
 ]
